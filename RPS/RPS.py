@@ -92,17 +92,6 @@ def who_wins(hand1, hand2):
         raise ValueError("only 'R', 'P' and 'S' are allowed input")
 
 
-def interactive_session():
-
-    random.seed()
-    result = ''
-    while True:
-        bots_hand = random.choice('SPR')
-        print("Play your hand")
-        players_hand = yield result
-        result = out_match(bots_hand, players_hand)
-
-
 def out_match(players_hand, bots_hand):
     """ print a nice output result
 
@@ -158,7 +147,60 @@ def main(args):
 
     if args['--inter']:
         # for the moment it does not work
-        pass
+        import curses
+
+        random.seed()
+
+        screen = curses.initscr()
+        curses.noecho()
+        curses.curs_set(0)
+        screen.keypad(1)
+        bots_points = 0
+        players_points = 0
+        match_fmt = "Bot {0}\tPlayer {1}"
+
+        screen.addstr("let's start to play Rock, Paper and Scissor...\n\n")
+        while True:
+            pl_hand = ''
+            bots_hand = random.choice('SPR')
+
+            event = screen.getch()
+            if event == ord('q'):
+                break
+            elif event == ord('h'):
+                screen.clear()
+                screen.addstr("""
+                              Press h to see this message.
+
+                              P to play Paper.
+                              R to play Rock.
+                              S to play Scissor.
+
+                              Press q to exit from the game.""")
+            elif event == ord('P'):
+                pl_hand = 'P'
+            elif event == ord('S'):
+                pl_hand = 'S'
+            elif event == ord('R'):
+                pl_hand = 'R'
+
+            if pl_hand:
+                screen.clear()
+                point = who_wins(pl_hand, bots_hand)
+
+                if point == 1:
+                    players_points += 1
+                elif point == 2:
+                    bots_points += 1
+
+                screen.addstr(out_match(pl_hand, bots_hand))
+                screen.addstr('\n\n')
+                screen.addstr(match_fmt.format(bots_points,
+                                               players_points))
+                screen.addstr('\n')
+
+        curses.endwin()
+
 
 if __name__ == "__main__":
 
