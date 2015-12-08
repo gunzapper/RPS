@@ -13,9 +13,21 @@ def who_wins(hand1, hand2):
     """
     >>> who_wins('R', 'S')
     1
+    >>> who_wins('P', 'R')
+    1
+    >>> who_wins('S', 'P')
+    1
     >>> who_wins('R', 'P')
     2
+    >>> who_wins('S', 'R')
+    2
+    >>> who_wins('P', 'S')
+    2
     >>> who_wins('R', 'R')
+    0
+    >>> who_wins('P', 'P')
+    0
+    >>> who_wins('S', 'S')
     0
     >>> who_wins('R', '?')
     Traceback (most recent call last):
