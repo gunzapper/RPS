@@ -5,6 +5,7 @@
 
 Usage:
   RPS.py <hand>
+  RPS.py -i | --inter
   RPS.py -h | --help
   RPS.py -t | --test
   RPS.py --version
@@ -12,6 +13,7 @@ Usage:
 Options:
   -h --help     show this help message and exit.
   -t --test     execute tests.
+  -i --inter    launch interactive mode
   --version     show the version.
 """
 
@@ -110,6 +112,8 @@ def main(args):
         elif point == 2:
             print(Nice_comments[bots_hand])
 
+    if args['--inter']:
+        pass
 
 if __name__ == "__main__":
 
