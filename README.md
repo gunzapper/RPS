@@ -2,6 +2,18 @@
 
 This is a cli implementation of Rock Paper Scissor (in Italian 'Morra Cinese').
 
+# How to play
+
+You have to launch the program with your choice, for example:
+
+    ./RPS.py P
+
+Remember:
+
+    * `P` stands for paper
+    * `R` accounts for rock
+    * `S` is for scissor
+
 ## Requirements:
 
   - docopt
