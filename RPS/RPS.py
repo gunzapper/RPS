@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""Rock - Paper - Scissor game.
+
+Usage:
+  RPS.py P
+  RPS.py S
+  RPS.py R
+  RPS.py -h | --help
+  RPS.py -t | --test
+  RPS.py --version
+
+Options:
+  -h --help     show this help message and exit.
+  -t --test     execute tests.
+  --version     show the version.
+"""
+
+from docopt import docopt
 
 GAME_TABLE = {
     'R': 0,
@@ -46,4 +63,7 @@ def main():
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+
+    arguments = docopt(__doc__, version='Rock Paper Scissor 0.0.1')
+    print(arguments)
     main()
