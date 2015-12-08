@@ -34,7 +34,7 @@ Nice_comments = {
 }
 
 results = [
-    "No one wins",
+    "Nobody won, nobody lose",
     "You won",
     "I beated you"
 ]
@@ -92,6 +92,58 @@ def who_wins(hand1, hand2):
         raise ValueError("only 'R', 'P' and 'S' are allowed input")
 
 
+def interactive_session():
+
+    random.seed()
+    result = ''
+    while True:
+        bots_hand = random.choice('SPR')
+        print("Play your hand")
+        players_hand = yield result
+        result = out_match(bots_hand, players_hand)
+
+
+def out_match(players_hand, bots_hand):
+    """ print a nice output result
+
+    Args:
+        players_hand (str): The hand of the player
+        bots_hand (str): The end of this script
+
+        >>> print(out_match('P', 'S'))
+        You played P
+        I played S
+        I beated you
+        Scissor cuts paper
+        >>> print(out_match('P', 'R'))
+        You played P
+        I played R
+        You won
+        Paper lines rock
+        >>> print(out_match('P', 'P'))
+        You played P
+        I played P
+        Nobody won, nobody lose
+        <BLANKLINE>
+    """
+
+    point = who_wins(players_hand, bots_hand)
+
+    if point == 1:
+        nice_end = Nice_comments[players_hand]
+    elif point == 2:
+        nice_end = Nice_comments[bots_hand]
+    else:
+        nice_end = ''
+
+    return("You played {0}\nI played {1}\n{2}\n{3}".format(
+        players_hand,
+        bots_hand,
+        results[point],
+        nice_end
+    ))
+
+
 def main(args):
 
     if args['--test']:
@@ -102,17 +154,10 @@ def main(args):
     if args['<hand>']:
         random.seed()
         bots_hand = random.choice('SPR')
-        print("You played {0}\nI played {1}".format(
-            args['<hand>'], bots_hand)
-        )
-        point = who_wins(args['<hand>'], bots_hand)
-        print(results[point])
-        if point == 1:
-            print(Nice_comments[args['<hand>']])
-        elif point == 2:
-            print(Nice_comments[bots_hand])
+        out_match(args['<hand>'], bots_hand)
 
     if args['--inter']:
+        # for the moment it does not work
         pass
 
 if __name__ == "__main__":
