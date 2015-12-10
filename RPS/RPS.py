@@ -28,9 +28,9 @@ GAME_TABLE = {
 }
 
 Nice_comments = {
-    'R': "Rock breaks scissor",
-    'S': "Scissor cuts paper",
-    'P': "Paper lines rock"
+    'R': "Rock breaks scissors",
+    'S': "Scissors cut paper",
+    'P': "Paper covers rock"
 }
 
 results = [
